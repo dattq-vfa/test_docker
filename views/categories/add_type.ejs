@@ -1,0 +1,178 @@
+<div class="main_content">
+  <div style="display: flex; justify-content: space-between; padding: 10px 0px;">
+    <span style="color: white; align-items: center; display: flex; font-size: 18pt;">Manage Type Category:</span> 
+    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal-type"><i class="fa fa-plus" style="font-size:20px"></i> Add Type Category</button>
+  </div>
+  <table class="table table-dark table-hover" id="table_user">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="table">
+      <%- str%>
+    </tbody>
+  </table>
+</div>
+
+<!-----------------ADD Modal --------------------------->
+<div class="modal" id="myModal-type">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Add Type Category</h4>
+        <span type="button" class="close" data-dismiss="modal">&times;</span>
+      </div>
+      <form id="Add_Type" method="POST">
+          <!-- Modal body -->   
+          <div class="modal-body">
+            <div class="form-group">
+              <b>Type:</b>
+              <input class="form-control" id="type" name="type" placeholder="Type..." type="text" required>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-success"><i class="fa fa-upload"></i> Add</button>
+              <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+      </form> 
+    </div>
+  </div>
+</div>
+<!-----------------ADD Modal --------------------------->
+
+<!-----------------Edit Modal --------------------------->
+<div class="modal" id="myModal-etype">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Edit Type Category</h4>
+        <span type="button" class="close" data-dismiss="modal">&times;</span>
+      </div>
+      <form id="Edit_Type" method="POST">
+          <!-- Modal body -->   
+          <div class="modal-body">
+            <div class="form-group">
+              <b>Type:</b>
+              <input class="form-control" id="etype" name="type" placeholder="Type..." type="text" required>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-success"><span id="id_etype" style="display: none;"></span><i class="fa fa-upload"></i> Save</button>
+              <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+      </form> 
+    </div>
+  </div>
+</div>
+<!-----------------Edit Modal --------------------------->
+
+<!-----------------DELETE Database --------------------------->
+<div class="modal" id="myModal-de-type">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+              <h4 class="modal-title">Thông báo</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <!-- Modal body -->
+          <div class="modal-body">
+              Bạn có muốn xóa <span id="name_type"></span> không?
+          </div>
+          <!-- Modal footer -->
+          <div class="modal-footer">
+              <button type="button" id="delete_type" class="btn btn-danger" data-dismiss="modal"><span id="id_type" style="display: none;"></span>Xóa ngay</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Thoát</button>
+          </div>
+      </div>
+  </div>
+</div>
+<!-----------------DELETE Database--------------------------->
+
+  <script>
+      $(document).ready(function(){
+        $('#Add_Type').on('submit', function(e){
+          e.preventDefault();
+          let TYPE = $('#type').val();
+            $.ajax({
+                    url: 'add_type_category',
+                    type: 'POST',
+                    data: {'Type':TYPE},
+
+                    success: function (result) {
+                      alert(result);
+                      if(result=="ok")
+                      {
+                        window.location.href = 'add_type';
+                      }
+                    }
+                });
+            return false;
+        });
+
+        $('.edit_type').on('click', function(e){
+          e.preventDefault();
+          let edit_type = $.parseJSON($.trim($(this).find('span').text()));
+          $('#etype').val(edit_type.Type);
+          $('#id_etype').text(edit_type._id);
+          $("#myModal-etype").modal('show');
+        });
+
+        $('#Edit_Type').on('submit', function(e){
+          e.preventDefault();
+          let TYPE = $('#etype').val();
+          let id = $('#id_etype').text();
+            $.ajax({
+                    url: 'edit_type_category',
+                    type: 'POST',
+                    data: {'Type':TYPE ,id:id},
+
+                    success: function (result) {
+                      alert(result);
+                      if(result=="Completed!")
+                      {
+                        window.location.href = 'add_type';
+                      }
+                    }
+                });
+            return false;
+        });
+
+        $('.delete_type').on('click', function(e){
+          e.preventDefault();
+          let delete_type = $.parseJSON($.trim($(this).find('span').text()));
+          $('#name_type').text(delete_type.Type);
+          $('#id_type').text(delete_type._id);
+          $("#myModal-de-type").modal('show');
+        });
+
+        $('#delete_type').on('click', function(e){
+          e.preventDefault();
+          let id = $('#id_type').text();
+            $.ajax({
+                    url: 'delete_type',
+                    type: 'POST',
+                    data: {id:id},
+
+                    success: function (result) {
+                      alert(result);
+                      if(result=="Completed!")
+                      {
+                        window.location.href = 'add_type';
+                      }
+                    }
+                });
+            return false;
+        });
+
+
+        
+      });
+  </script>

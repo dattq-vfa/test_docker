@@ -1,0 +1,329 @@
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+
+<div class="main_content">
+    <div class="row" style="padding-bottom: 10px;">
+        <div class="col-md-12">
+            <a href="user" class="btn btn-primary"><i class="fa fa-arrow-circle-left" style="font-size:24px"></i> </a>
+            <a href="list_delete_user" class="btn btn-warning"><i class="fa fa-trash-o" style="font-size:24px"></i> List deleted</a>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus" style="font-size:20px"></i> Add User</button>
+        </div>
+    </div>
+    <table class="table table-dark table-hover" id="table_user">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="table">
+            <%- str%>
+        </tbody>
+    </table>
+</div>
+
+<!------------------------------ The Modal --------------------------------->
+<!-----------------ADD Modal --------------------------->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Add User</h4>
+          <span type="button" class="close" data-dismiss="modal">&times;</span>
+        </div>
+        <!-- //enctype="multipart/form-data" very important -->
+        <form id="Add_user" method="POST" enctype="multipart/form-data">
+            <!-- Modal body -->   
+            <div class="modal-body">
+              <div class="form-group">
+                <label class="lable-input" for="name"><i class="fa fa-user"></i> Name:
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </label>
+                <label class="lable-input" for="usrname"><i class="fa fa-user"></i> User Name:
+                    <input type="text" class="form-control" id="usrname" name="username" required>
+                </label>
+                <label class="lable-input" for="password"><i class="fa fa-lock"></i> Password:
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </label>   
+                <label class="lable-input" for="phone"><i class="fa fa-mobile"></i> Phone:
+                    <input type="text" class="form-control" id="phone" name="phone" required>
+                </label>      
+                <label class="lable-input" for="email"><i class="fa fa-envelope"></i> Email
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </label>
+                <label class="lable-input" for="address"><i class="fas fa-address-card"></i> Address:
+                    <input type="text" class="form-control" id="address" name="address" required>
+                </label>
+                <label class="lable-input" for="role"><i class="fas fa-key"></i> Role:
+                    <input type="text" class="form-control" id="role" name="role" placeholder="1,2,..." required>
+                </label>
+                <label class="lable-input" for="sel"><i class="fas fa-shield-alt"></i> Status:
+                    <select class="form-control" id="sel">
+                        <option>false</option>
+                        <option>true</option>
+                    </select>
+                </label>
+              </div>
+              <!-- Modal footer -->
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-success"><i class="fa fa-upload"></i> Add</button>
+                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
+              </div>
+            </div>
+        </form> 
+      </div>
+    </div>
+</div>
+  <!-----------------ADD Modal --------------------------->
+  
+  <!-----------------EDIT Modal --------------------------->
+<div class="modal" id="myModaledit">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+            <h4 class="modal-title">Edit User</h4>
+            <span type="button" class="close" data-dismiss="modal">&times;</span>
+        </div>
+        <!-- //enctype="multipart/form-data" very important -->
+        <form id="e_upload_user" method="POST" enctype="multipart/form-data">
+            <!-- Modal body -->   
+            <div class="modal-body">
+                <div class="form-group">
+                <label class="lable-input" for="name"><i class="fa fa-user"></i> Name:
+                    <input type="text" class="form-control" id="e_name" name="name" required>
+                </label>
+                <label class="lable-input" for="usrname"><i class="fa fa-user"></i> User Name:
+                    <input type="text" class="form-control" id="e_usrname" name="username" required>
+                </label>
+                <label class="lable-input" for="password"><i class="fa fa-lock"></i> Password:
+                    <input type="password" class="form-control" id="e_password" name="password">
+                </label>   
+                <label class="lable-input" for="phone"><i class="fa fa-mobile"></i> Phone:
+                    <input type="text" class="form-control" id="e_phone" name="phone" required>
+                </label>      
+                <label class="lable-input" for="email"><i class="fa fa-envelope"></i> Email
+                    <input type="email" class="form-control" id="e_email" name="email" required>
+                </label>
+                <label class="lable-input" for="address"><i class="fas fa-address-card"></i> Address:
+                    <input type="text" class="form-control" id="e_address" name="address" required>
+                </label>
+                <label class="lable-input" for="role"><i class="fas fa-key"></i> Role:
+                    <input type="text" class="form-control" id="e_role" name="role" placeholder="1,2,..." required>
+                </label>
+                <label class="lable-input" for="sel"><i class="fas fa-shield-alt"></i> Status:
+                    <select class="form-control" id="e_sel">
+                        <option>false</option>
+                        <option>true</option>
+                    </select>
+                </label>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                <button type="submit" class="btn btn-success"><span id="id_e_user" style="display: none;" ></span><i class="fa fa-upload"></i> Upload</button>
+                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </form> 
+        </div>
+    </div>
+</div>
+  <!-----------------EDIT Modal --------------------------->
+  
+  <!-----------------DELETE Temporary Modal --------------------------->
+  <div class="modal" id="myModal-delete-user">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Thông báo</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                Bạn có muốn xóa <span id="f_delete_name_user"></span> không?
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" id="btn_delete_user" class="btn btn-danger" data-dismiss="modal"><span id="f_delete_user" style="display: none;"></span>Xóa ngay</button>
+                <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Thoát</button>
+            </div>
+        </div>
+    </div>
+  </div>
+  <!-----------------DELETE Temporary Modal --------------------------->
+  
+  <!-----------------DELETE Database --------------------------->
+  <div class="modal" id="myModal-list-delete">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Thông báo</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                Bạn có muốn xóa <span id="f_delete_name"></span> không?
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" id="delete_database_user" class="btn btn-danger" data-dismiss="modal"><span id="f_delete" style="display: none;"></span>Xóa ngay</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Thoát</button>
+            </div>
+        </div>
+    </div>
+  </div>
+  <!-----------------DELETE Database--------------------------->
+  <!-------------------------------------- The Modal -------------------------------------------------->
+
+  <script>
+      $(document).ready(function(){
+
+        $('#table_user').DataTable({
+        "scrollX": true
+        });
+
+        $("#table_user_info").remove();
+
+        $('#Add_user').on('submit', function(e){
+            e.preventDefault();
+            let name = $('#name').val();
+            let username = $('#usrname').val();
+            let password = $('#password').val();
+            let phone = $('#phone').val();
+            let email = $('#email').val();
+            let address = $('#address').val();
+            let role = $('#role').val();
+            let status = $('#sel').val();
+            $.ajax({
+                    url: 'Add_user',
+                    type: 'POST',
+                    data: {name:name, username:username, password:password, phone:phone,
+                         email:email, address:address, role:role, status:status},
+                    success: function (result) {
+                    alert(result);
+                    if(result=="ok")
+                    {
+                        $("#Add_user").trigger("reset");//reset form
+                        window.location.href = 'user';
+                    }
+                }
+            });
+            return false;
+        }); 
+
+        $('#e_upload_user').on('submit', function(e){
+            e.preventDefault();
+            let name = $('#e_name').val();
+            let username = $('#e_usrname').val();
+            let password = $('#e_password').val();
+            let phone = $('#e_phone').val();
+            let email = $('#e_email').val();
+            let address = $('#e_address').val();
+            let role = $('#e_role').val();
+            let status = $('#e_sel').val();
+            let id = $('#id_e_user').text();
+            $.ajax({
+                    url: 'edit_user',
+                    type: 'POST',
+                    data: {name:name, username:username, password:password, phone:phone,
+                         email:email, address:address, role:role, status:status, id:id},
+                    success: function (result) {
+                    alert(result);
+                    if(result=="ok")
+                    {
+                        window.location.href = 'user';
+                    }
+                    }
+            });
+            return false;
+        }); 
+
+        $('.edit_user').on('click', function(e){
+            e.preventDefault();
+            let e_user = $.parseJSON($.trim($(this).find('span').text()));
+            $('#e_name').val(e_user.name);
+            $('#e_usrname').val(e_user.username);
+            $('#e_email').val(e_user.email);
+            $('#e_phone').val(e_user.phone);
+            $('#e_address').val(e_user.address);
+            $('#e_role').val(e_user.Role);
+            $('#e_status').val(e_user.status);
+            $('#id_e_user').text(e_user._id);
+            $("#myModaledit").modal('show');
+        });
+
+        $('.delete_user_tmp').on('click', function(e){
+            e.preventDefault();
+            let delete_user = $.parseJSON($.trim($(this).find('span').text()));
+            $('#f_delete_name_user').text(delete_user.name);
+            $('#f_delete_user').text(delete_user._id);
+            $("#myModal-delete-user").modal('show');
+        });
+
+        $('#btn_delete_user').on('click', function(e){
+            e.preventDefault();
+            id = $(this).find('span').text();
+            $.ajax({
+                url: 'update_status_user',
+                type: 'POST',
+                data: {id: id},
+                success: function (result) {
+                    alert(result);
+                    window.location.href = 'user'; //chuyen trang
+                }
+            });
+            return false;
+        });
+
+        $('.list_delete_user').on('click', function(e){
+            e.preventDefault();
+            let list_delete_user = $.parseJSON($.trim($(this).find('span').text()));
+            $('#f_delete_name').text("vĩnh viễn " + list_delete_user.name);
+            $('#f_delete').text(JSON.stringify(list_delete_user));
+            $("#myModal-list-delete").modal('show');
+        });
+
+        $('#delete_database_user').on('click', function(e){
+            e.preventDefault();
+            let id = $.parseJSON($.trim($(this).find('span').text()));
+            $.ajax({
+                url: 'delete_user',
+                type: 'POST',
+                data: {id:id},
+                success: function (result) {
+                    alert(result);
+                    $('#f_delete').text('');
+                    window.location.href = 'list_delete_user'; //chuyen trang
+                }
+            });
+            return false;
+        });
+
+        $('.restore_user').on('click', function(e){
+            e.preventDefault();
+            id = $.parseJSON($.trim($(this).find('span').text()));
+            $.ajax({
+            url: 'restore_user',
+            type: 'POST',
+            data: {id: id},
+            success: function (result) {
+                alert(result);
+                window.location.href = 'list_delete_user'; //chuyen trang
+            }
+            });
+            return false;
+        });
+
+    });
+</script>

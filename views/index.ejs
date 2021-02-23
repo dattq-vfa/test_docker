@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MWC</title>
+    <link rel="stylesheet" href="/public/style.css"> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <%- include('partials/header'); %> 
+    <!-- master layout -->
+    <div class="container-fluid" style="padding-top: 100px;">
+        <div class="sidebar">
+            <div class="list-group">
+                <a href="/" class="list-group-item <%=link.home%>"><i class="fa fa-home"></i> HOME PAGE</a>
+                <div id="accordion">
+                    <a class="card-link list-group-item <%=link.category%>" data-toggle="collapse" href="#collapseOne">
+                        <i class="fa fa-list-alt"></i> CATEGORIES
+                    </a>
+                    <div id="collapseOne" class="collapse" data-parent="#accordion">
+                        <a href="/list_categories/1" class="list-group-item">LIST CATEGORIES</a>
+                        <a href="/add_group" class="list-group-item"><i class="fas fa-folder-plus"></i> ADD GROUP</a>
+                        <a href="/add_type" class="list-group-item"><i class="fas fa-folder-plus"></i> ADD TYPE</a>
+                    </div>
+                </div> 
+                <a class="list-group-item <%=link.user%>" href="/user"><i class="fa fa-user"></i> Users</a> 
+                <a class="list-group-item <%=link.banner%>" href="/banner"><i class="fas fa-cogs"></i> Slider Image</a>            
+            </div>
+        </div>
+        </div>
+        <div class="content">
+            <div class="main"><%- include(main); %></div>
+        </div>
+        
+    </div>
+</body>
+</html>
+

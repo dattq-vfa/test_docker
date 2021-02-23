@@ -1,0 +1,376 @@
+
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+
+<div class="main_content">
+  <div class="row" style="padding-bottom: 10px;">
+    <div class="col-md-12">
+      <a href="list_categories/1" class="btn btn-primary"><i class="fa fa-arrow-circle-left" style="font-size:24px"></i> </a>
+      <a href="list_delete_categories" class="btn btn-warning"><i class="fa fa-trash-o" style="font-size:24px"></i> List deleted</a>
+      <button class="btn btn-primary" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus" style="font-size:20px"></i> Add Category</button>
+    </div>
+  </div>
+  <table class="table table-dark table-hover" id="table_category">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Group</th>
+        <th>Image</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Describe</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody id="table">
+      <%- str%>
+    </tbody>
+  </table>
+</div>
+
+<!------------------------------ The Modal --------------------------------->
+<!-----------------ADD Modal --------------------------->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Add Product</h4>
+        <span type="button" class="close" data-dismiss="modal">&times;</span>
+      </div>
+      <!-- //enctype="multipart/form-data" very important -->
+      <form id="upload_img" method="POST" enctype="multipart/form-data">
+          <!-- Modal body -->   
+          <div class="modal-body">
+            <div class="form-group">
+              <div class="dropdown form-group">
+                <label for="TYPE" class="group" style="font-weight: bold;">Type: 
+                  <select id="TYPE" name="TYPE" class="btn btn-primary">
+                    <%- option_type%>
+                  </select>
+                <label>
+                <label for="Group" class="group" style="font-weight: bold; padding-left: 10px;">Group: 
+                  <select id="Group" name="Group" class="btn btn-primary ">
+                    <%- option_group%>
+                  </select>
+                </label>
+              </div>
+              <b>Name Product:</b>
+              <input class="form-control" id="name" name="name" placeholder="Name Product..." type="text" required>
+              <b>Price:</b>
+              <input class="form-control" id="price" name="price" placeholder="Price..." type="number" required>
+              <b>Quantity:</b>
+              <input class="form-control" id="quantity" name="quantity" placeholder="Quantity..." type="number" required>
+              <b>Avatar Image:</b> (Format: .jpg .png)
+              <input type="file" class="form-control" id="img" name="img" accept=".jpg,.png" >
+              <b>Items Image:</b> (Format: .jpg .png)
+              <!-- multiple neu input nhieu file -->
+              <input type="file" class="form-control" id="imgs" name="imgs"  accept=".jpg,.png" multiple>
+              <b>Describe:</b>
+              <textarea  class="form-group" name="content" id="content"></textarea>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-success"><i class="fa fa-upload"></i> Upload</button>
+              <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+      </form> 
+    </div>
+  </div>
+</div>
+<!-----------------ADD Modal --------------------------->
+
+<!-----------------EDIT Modal --------------------------->
+<div class="modal" id="myModaledit">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Edit Product</h4>
+        <span type="button" class="close" data-dismiss="modal">&times;</span>
+      </div>
+      <!-- //enctype="multipart/form-data" very important -->
+      <form id="e_upload_img" method="POST" enctype="multipart/form-data">
+          <!-- Modal body -->   
+          <div class="modal-body">
+            <div class="form-group">
+              <div class="dropdown form-group">
+                <label for="TYPE" class="group" style="font-weight: bold;">Type: 
+                  <select id="e_TYPE" name="TYPE" class="btn btn-primary">
+                    <%- option_type%>
+                  </select>
+                <label>
+                <label for="Group" class="group" style="font-weight: bold; padding-left: 10px;">Group: 
+                  <select id="e_Group" name="Group" class="btn btn-primary ">
+                    <%- option_group%>
+                  </select>
+                </label>
+              </div>
+              <b>Name Product:</b>
+              <input class="form-control" id="e_name" name="name" placeholder="Name Product..." type="text" required>
+              <b>Price:</b>
+              <input class="form-control" id="e_price" name="price" placeholder="Price..." type="number" required>
+              <b>Quantity:</b>
+              <input class="form-control" id="e_quantity" name="quantity" placeholder="Quantity..." type="number" required>
+              <!-- get name edit form -->
+              <input class="form-control" name="e_form" type="text" value="e_form" style="display: none;">
+              <!-- get name edit form -->
+              <b>Avatar Image:</b> (Format: .jpg .png)
+              <input type="file" class="form-control" id="e_img" name="img" accept=".jpg,.png" >  
+              <span id="show_img"></span>
+              <!-- get name avatar -->
+              <span id="e_avatar_img" style="display: none;"></span>
+              <!-- get name avatar -->
+              <div><b>Items Image:</b> (Format: .jpg .png)</div>
+              <!-- multiple neu input nhieu file -->
+              <input type="file" class="form-control" id="e_imgs" name="imgs"  accept=".jpg,.png" multiple>
+              <span id="show_imgs"></span>
+              <!-- get name img delete and list img-->
+              <span id="delete_img" style="display: none;"></span>
+              <span id="e_list_img" style="display: none;"></span>
+              <!-- get name img delete and list img-->
+              <div><b>Describe:</b></div>
+              <textarea  class="form-group" name="content" id="contents"></textarea>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-success"><span id="id_e_product" style="display: none;" ></span><i class="fa fa-upload"></i> Upload</button>
+              <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+      </form> 
+    </div>
+  </div>
+</div>
+<!-----------------EDIT Modal --------------------------->
+
+<!-----------------DELETE Temporary Modal --------------------------->
+<div class="modal" id="myModal-delete-tmp">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+              <h4 class="modal-title">Thông báo</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <!-- Modal body -->
+          <div class="modal-body">
+              Bạn có muốn xóa <span id="f_delete_name_tmp"></span> không?
+          </div>
+          <!-- Modal footer -->
+          <div class="modal-footer">
+              <button type="button" id="btn_delete_tmp" class="btn btn-danger" data-dismiss="modal"><span id="f_delete_tmp" style="display: none;"></span>Xóa ngay</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Thoát</button>
+          </div>
+      </div>
+  </div>
+</div>
+<!-----------------DELETE Temporary Modal --------------------------->
+
+<!-----------------DELETE Database --------------------------->
+<div class="modal" id="myModal-list-delete">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+              <h4 class="modal-title">Thông báo</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <!-- Modal body -->
+          <div class="modal-body">
+              Bạn có muốn xóa <span id="f_delete_name"></span> không?
+          </div>
+          <!-- Modal footer -->
+          <div class="modal-footer">
+              <button type="button" id="delete_database_product" class="btn btn-danger"><span id="f_delete" style="display: none;"></span>Xóa ngay</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Thoát</button>
+          </div>
+      </div>
+  </div>
+</div>
+<!-----------------DELETE Database--------------------------->
+<!-------------------------------------- The Modal -------------------------------------------------->
+
+<script src="/public/ckeditor/ckeditor.js"></script>
+<script>CKEDITOR.replace('content');</script>
+<script>CKEDITOR.replace('contents');</script>
+
+<script>
+
+    function addFunction(e) {
+      document.getElementById(e).classList.toggle("show_add_btn");
+    }
+    let tmp_img="";
+    function HideFunction(e){
+        let x = document.getElementById(e);
+        x.style.display = "none";
+        tmp_img +=  e +",";
+        $('#delete_img').text(tmp_img);
+        // get list imgs
+        if(e.includes('item'))
+        {
+          list_imgs = $('#e_list_img').text().split(e);
+          $('#e_list_img').text(list_imgs);
+        }
+        else if(e.includes('avatar'))
+        {
+          // get name avatar
+          $('#e_avatar_img').text('');
+        }
+    }
+
+    $(document).ready(function(){
+
+      $('#table_category').DataTable({
+        "scrollX": true
+      });
+
+      $("#table_category_info").remove();
+
+      $('#upload_img').on('submit', function(e){
+          e.preventDefault();
+          let data = new FormData(this);
+          data.append('content', CKEDITOR.instances['content'].getData());
+          $.ajax({
+                  url: 'upload_file',
+                  type: 'POST',
+                  data: data,
+                  cache: false,
+                  processData: false,
+                  contentType: false,
+                  success: function (result) {
+                    alert(result);
+                    if(result=="ok")
+                    {
+                      $("#upload_img").trigger("reset");//reset form
+                      CKEDITOR.instances['content'].setData('');
+                      window.location.href = 'list_categories';
+                    }
+                  }
+          });
+          return false;
+      }); 
+      
+      $('#e_upload_img').on('submit', function(e){
+          e.preventDefault();
+
+          let data = new FormData(this);
+          data.append('content', CKEDITOR.instances['contents'].getData());
+          data.append('id', $('#id_e_product').text());
+          data.append('name_img', $('#delete_img').text());
+          data.append('e_list_img', $('#e_list_img').text());
+          data.append('e_avatar_img', $('#e_avatar_img').text());
+          $.ajax({
+                  url: 'edit_file',
+                  type: 'POST',
+                  data: data,
+                  cache: false,
+                  processData: false,
+                  contentType: false,
+                  success: function (result) {
+                    alert(result);
+                    window.location.href = 'list_categories';
+                  }
+          });
+          return false;
+      }); 
+
+      $('.edit_product').on('click', function(e){
+          e.preventDefault();
+
+          tmp_img="";
+          $('#delete_img').text("");   
+          $('#show_imgs').html('');
+          $('#e_img').val('');
+          $('#e_imgs').val('');
+          let e_product = $.parseJSON($.trim($(this).find('span').text()));
+          $('#e_list_img').text(e_product.imgs);
+          $('#e_avatar_img').text(e_product.img);
+          $('#e_TYPE').val(e_product.TYPE);
+          $('#e_Group').val(e_product.Group);
+          $('#e_name').val(e_product.name);
+          $('#e_price').val(e_product.price);
+          $('#e_quantity').val(e_product.quantity);
+          $('#id_e_product').text(e_product._id);
+          $('#show_img').html(`<span class="show_img" id="`+e_product.img+`">
+                                <img src="/public/uploads/uploads/`+e_product.img+`" alt="`+e_product.img+`" style='border: 2px solid black;'>
+                                <i class="fa fa-times btn1" onclick="HideFunction('`+e_product.img+`')" style="font-size:24px; color: rgb(151, 14, 14);"></i>
+                              </span>`);
+          e_product.imgs.forEach(element => {
+          $('#show_imgs').append(`<span class="btn btn_adjust show_img" id="`+element+`">
+                                    <img src="/public/uploads/uploads/`+element+`" alt="`+element+`"style='border: 2px solid black;'>
+                                    <i class="fa fa-times btn1" onclick="HideFunction('`+element+`')" style="font-size:24px; color: rgb(151, 14, 14);"></i>
+                                  </span>`);
+          });
+          CKEDITOR.instances['contents'].setData($.parseJSON($.trim($(this).find('span').html())).description);//get html for ckedditor
+          $("#myModaledit").modal('show');
+      });
+      
+      $('.delete_product_tmp').on('click', function(e){
+          e.preventDefault();
+          let delete_product = $.parseJSON($.trim($(this).find('span').text()));
+          $('#f_delete_name_tmp').text(delete_product.name);
+          $('#f_delete_tmp').text(delete_product._id);
+          $("#myModal-delete-tmp").modal('show');
+      });
+
+      $('#btn_delete_tmp').on('click', function(e){
+          e.preventDefault();
+          id = $(this).find('span').text();
+          $.ajax({
+            url: 'update_status_product',
+            type: 'POST',
+            data: {id: id},
+            success: function (result) {
+              alert(result);
+              window.location.href = 'list_categories/1'; //chuyen trang
+            }
+          });
+          return false;
+      });
+
+      $('.list_delete_product').on('click', function(e){
+          e.preventDefault();
+          let list_delete_product = $.parseJSON($.trim($(this).find('span').text()));
+          $('#f_delete_name').text("vĩnh viễn " + list_delete_product.name);
+          $('#f_delete').text(JSON.stringify(list_delete_product));
+          $("#myModal-list-delete").modal('show');
+      });
+
+      $('#delete_database_product').on('click', function(e){
+          e.preventDefault();
+          let database_product = $(this).find('span').text();
+          $.ajax({
+            url: 'delete_product',
+            type: 'POST',
+            data: {database_product:database_product},
+            success: function (result) {
+              alert(result);
+              $('#f_delete').text('');
+              window.location.href = 'list_delete_categories'; //chuyen trang
+            }
+          });
+          return false;
+      });
+
+      $('.restore_product').on('click', function(e){
+          e.preventDefault();
+          id = $.parseJSON($.trim($(this).find('span').text()));
+          $.ajax({
+            url: 'restore_product',
+            type: 'POST',
+            data: {id: id},
+            success: function (result) {
+              alert(result);
+              window.location.href = 'list_delete_categories'; //chuyen trang
+            }
+          });
+          return false;
+      });
+
+    });
+
+</script>

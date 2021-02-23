@@ -1,0 +1,28 @@
+<div class="header">
+    <base href="http://localhost:3000/">
+    <ul class="navbar">
+        <li>
+            <% if(localStorage.getItem('account')=='' | localStorage.getItem('account')== null) {%>
+                <a href="login" class="color-navbar">
+                    <i class="fa fa-sign-in-alt"></i>
+                    <i class="fa fa-sign-in"></i> Login
+                </a>
+            <%} else{%>
+                <a href="logout" class="color-navbar">
+                    <i class="fa fa-sign-out-alt"></i>
+                    <i class="fa fa-sign-out"></i> Logout
+                </a>
+                <span id="name_login"><%=localStorage.getItem('account')%></span>
+            <%}%>
+        </li>
+        <li>
+            <img src="http://mauweb.monamedia.net/converse/wp-content/uploads/2019/05/logo-mona.png" alt="logo"
+            style="height: 80px; width: auto;">
+        </li>
+        <li>
+            <button class="btn btn-dark" id="btn-search" ><i class="fa fa-search"></i></button>
+            <a href="#" class="color-navbar" style="padding-left: 5px;">Shopping Cart<i class="fa fa-shopping-cart"style="font-size: 24px; color: white;"></i></a>
+        </li>
+    </ul>
+
+</div>

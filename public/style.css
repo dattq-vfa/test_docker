@@ -1,0 +1,409 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-size: 11pt;
+}
+html,body{
+  height: 100%;
+  background-color: black;
+}
+a:hover{
+  text-decoration: none !important;
+}
+.color_text{
+  color: white;
+}
+.list-group a:hover{
+    color: white;
+    text-decoration: none;
+    background-color:#0f1216;
+}
+.list-group a{
+    color:white;
+    background-color: #252c35;
+    border-bottom: white solid 1px;
+}
+
+.list-group-item{
+    min-width: 150px;
+}
+.list-group-item:first-child, :last-child {
+    border-radius: unset !important;
+}
+
+.header{
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100px;
+    background-color:  #252c35;
+    line-height: 100px;
+    text-align: center;
+    color:#ffffff;
+    top: 0;
+    z-index: 10;
+}
+.header img:hover{
+  background-color: unset;
+}
+.navbar{
+  list-style: none;
+  padding: 0px 30px 0px 30px !important;
+}
+.main_content{
+    padding: 20px 40px 0px 40px;
+}
+.dropdown-menu >li>a{
+    display: block;
+    padding: 3px 20px;
+}
+.dropdown-menu>li>a:hover{
+    background-color: gray;
+    text-decoration: none;
+    color: white;
+}
+
+.group{
+  background-color: #007bff;
+}
+
+option{
+    background-color: #252c35;
+    color: white;
+}
+.show_img{
+  position: relative;
+}
+.btn1{
+  position: absolute;
+  right: 0px;
+  font-size: 20px;
+}
+.btn1:hover{
+  background-color:rgb(207, 201, 201);
+  cursor: pointer;
+}
+
+.btn_adjust{
+  padding: 0px !important;
+  cursor: auto !important;
+}
+
+img{
+  width: 85px;
+  height: 55px;
+}
+.img{
+  margin: auto;
+  width: 80%;
+  display:flex;
+  flex-wrap: wrap;
+  border: solid 2px black;
+  justify-content: space-between;
+}
+.imgs{
+      height: 100px;
+      overflow: auto;
+}
+
+.sidebar{
+  left: 0px;
+  width: 200px;
+  background-color:#252c35;
+  position: fixed;
+  height: 100%;
+  z-index: 1;
+}
+.content{
+  margin-left: 200px;
+  height: 100%;
+  background-color: black;
+  /* padding: 0px 50px; */
+}
+.main{
+  height: 100%;
+}
+/* ---------datatable----------------- */
+.table{
+  margin-bottom: 0px !important;
+  width: 100% !important;
+}
+
+#table_category_length, #table_user_length{ 
+  display: flex;
+  padding: 10px 0px;
+}
+
+#table_category_length label , #table_user_length label{
+  display: flex;
+  color: white;
+}
+
+#table_category_filter, #table_user_filter{
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 0px;
+}
+
+#table_category_filter label, #table_user_filter label{
+  display: flex;
+  color: white;
+}
+
+#table_category_paginate{
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+}
+
+.arrange_category{
+  cursor: pointer;
+}
+
+
+/* ---------datatable----------------- */
+
+.form-input{
+  width: 50%;
+  min-width: 320px;
+}
+a.page-link{
+  border: none;
+  background-color: #f5f5fa;
+  color: black;
+}
+a.page-link:hover{
+  background-color: #9c9999  ;
+  color:black;
+}
+.page-item.active .page-link{
+  background-color: #37373b !important;
+  color:white !important;
+}
+
+  @media screen and (max-width: 706px) {
+      .img_login{
+        background-attachment: unset !important;
+      }
+      .sidebar {
+        width: 100%;
+        position: relative;
+      }
+      .container-fluid{
+          padding-left: 0px !important;
+          padding-right: 0px !important;
+      }
+      .content {
+          margin-left: 0;
+          width: 100%;
+          padding: 0px;
+      }
+      .form-input{
+        width: 100%;
+      }
+      .lable-input{
+        width: 100% !important;
+      }
+      .list-group a{
+          text-align: center;
+      }
+
+      .main_content{
+        padding: 0px;
+      }
+
+      #table_category_filter{
+        display: flex;
+        justify-content: flex-start;
+      }
+  }
+
+
+.dropdown-container {
+  display: none;
+  background-color: #262626;
+  padding-left: 8px;
+}
+
+.btn-circle{
+  border-radius: 50% !important;
+}
+.btn-adjust{
+  padding: 2px !important;
+  border-radius: 5px !important;
+}
+td{
+  padding: 5px 5px 5px 13px!important;
+}
+.lable-input{
+  min-width: 230px;
+  font-weight: bold;
+}
+
+
+/* mũi tên lên xuống tạo hiệu ứng */
+  [data-toggle="collapse"]:after {
+        display: inline-block;
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        transform: rotate(90deg) ;
+      content: "\f0da";
+      transition: all linear 0.25s;
+      padding: 5px;
+      }   
+    [data-toggle="collapse"].collapsed:after {
+      transform: rotate(0deg) ;
+    }
+
+
+/*_________ mũi tên lên xuống tạo hiệu ứng ___________*/
+
+/* tạo button add  */
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color:   #262626;
+  overflow: auto;
+  padding: 5px;
+  z-index: 1;
+  min-width: 150px;
+}
+
+.show_add_btn {
+  display: flex;
+  align-items: center;
+}
+
+.myInput{
+  border: none;
+  width: 100px;
+  background-color:#262626;
+  color: white;
+}
+.btn_add{
+  padding: 2px 10px 2px 10px;
+  border-radius: 5px !important;
+}
+
+label{
+  margin-bottom: 0px !important;
+}
+/* tạo button add  */
+
+#btn-search{
+  background-color: #252c35; 
+  border-right-color: rgb(171, 173, 171);
+  border-top-color: #252c35;
+  border-bottom-color:#252c35;
+  border-left-color: #252c35;
+  border-radius: unset;
+  padding: 2px 13px 2px 13px;
+}
+.color-navbar{
+  color: rgb(171, 173, 171);
+  padding: 10px 0px;
+}
+.navbar li a:hover{
+  border-bottom: 2px solid rgb(128, 128, 128);
+  color: #ffffff;
+}
+
+
+
+/*----------------- Login form ------------------------*/
+@import url('https://fonts.googleapis.com/css?family=Numans');
+
+.img_login{
+height: 100%;
+width: auto;
+background-image: url('./background_img/img_login.jpg');
+background-size: cover;
+background-repeat: no-repeat;
+font-family: 'Numans', sans-serif;
+background-attachment: fixed;
+
+}
+
+.container{
+height: 100%;
+align-content: center;
+
+}
+
+.card{
+height: 370px;
+margin-top:40px;
+width: 400px;
+background-color: rgba(0,0,0,0.5) !important;
+}
+
+.social_icon span{
+font-size: 60px;
+margin-left: 10px;
+color: #FFC312;
+}
+
+.social_icon span:hover{
+color: white;
+cursor: pointer;
+}
+
+.card-header h3{
+color: white;
+}
+
+.social_icon{
+position: absolute;
+right: 20px;
+top: -45px;
+}
+
+.input-group-prepend span{
+width: 50px;
+background-color: #FFC312;
+color: black;
+border:0 !important;
+}
+
+input:focus{
+outline: 0 0 0 0  !important;
+box-shadow: 0 0 0 0 !important;
+
+}
+
+.remember{
+color: white;
+}
+
+.remember input
+{
+width: 20px;
+height: 20px;
+margin-left: 15px;
+margin-right: 5px;
+}
+
+.login_btn{
+color: black;
+background-color: #FFC312 !important;
+width: 100px;
+}
+
+.login_btn:hover{
+color: black;
+background-color: white !important;
+}
+
+.links{
+color: white;
+}
+
+.links a{
+margin-left: 4px;
+}
+/*----------------- Login form ------------------------*/

@@ -1,0 +1,205 @@
+
+<div class="main_content">
+  <table class="table table-dark table-hover" id="table_user">
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>Image</th>
+        <th>Status</th>
+        <th><a style="cursor: pointer; background-color: rgb(51, 132, 138); padding: 2px;" data-toggle="modal" data-target="#myModal-Banner">Add Image</a></th>
+      </tr>
+    </thead>
+    <tbody id="table">
+      <%- str%>
+    </tbody>
+  </table>
+</div>
+
+
+<!-----------------ADD Modal --------------------------->
+<div class="modal" id="myModal-Banner">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Image Banner</h4>
+        <span type="button" class="close" data-dismiss="modal">&times;</span>
+      </div>
+      <!-- //enctype="multipart/form-data" very important -->
+      <form id="Add_Banner" method="POST" enctype="multipart/form-data">
+          <!-- Modal body -->   
+          <div class="modal-body">
+            <div class="form-group">
+              <b>Numerical Order:</b>
+              <input class="form-control" id="No" name="No" placeholder="1" type="number" min="0" required>
+              <b>Status:</b>
+              <select class="form-control" id="stt">
+                <option>false</option>
+                <option>true</option>
+              </select>
+              <b>Image:</b> (Format: .jpg .png)
+              <input type="file" class="form-control" id="img" name="img" accept=".jpg,.png" >
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-success"><i class="fa fa-upload"></i> Upload</button>
+              <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+      </form> 
+    </div>
+  </div>
+</div>
+<!-----------------ADD Modal --------------------------->
+<!-----------------Edit Modal --------------------------->
+<div class="modal" id="myModal-E-Banner">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Edit Banner</h4>
+        <span type="button" class="close" data-dismiss="modal">&times;</span>
+      </div>
+      <!-- //enctype="multipart/form-data" very important -->
+      <form id="Edit_Banner" method="POST" enctype="multipart/form-data">
+          <!-- Modal body -->   
+          <div class="modal-body">
+            <div class="form-group">
+              <b>Numerical Order:</b>
+              <input class="form-control" id="e_No" name="No" placeholder="1" type="number" min="0" required>
+              <b>Status:</b>
+              <select class="form-control" id="e_stt">
+                <option>false</option>
+                <option>true</option>
+              </select>
+              <b>Image:</b> (Format: .jpg .png)
+              <input type="file" class="form-control" id="e_img" name="img" accept=".jpg,.png" >
+              <span id="show_banner"></span>
+              <span id="name_banner"></span>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-success"><span id="id_e_banner" style="display: none;" ></span><i class="fa fa-upload"></i> Upload</button>
+              <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+      </form> 
+    </div>
+  </div>
+</div>
+<!-----------------Edit Modal --------------------------->
+<!-----------------DELETE Database --------------------------->
+<div class="modal" id="myModal-delete-banner">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+              <h4 class="modal-title">Thông báo</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <!-- Modal body -->
+          <div class="modal-body">
+              Bạn có muốn xóa <span id="f_delete_name"></span> không?
+          </div>
+          <!-- Modal footer -->
+          <div class="modal-footer">
+              <button type="button" id="delete_database_banner" class="btn btn-danger" data-dismiss="modal"><span id="f_delete_banner" style="display: none;"></span>Xóa ngay</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Thoát</button>
+          </div>
+      </div>
+  </div>
+</div>
+<!-----------------DELETE Database--------------------------->
+
+<script>
+  $(document).ready(function(){
+    $('#Add_Banner').on('submit', function(e){
+          e.preventDefault();
+          let data = new FormData(this);
+          data.append('status', $('#stt').val());
+          $.ajax({
+                  url: 'Add_Banner',
+                  type: 'POST',
+                  data: data,
+                  cache: false,
+                  processData: false,
+                  contentType: false,
+                  success: function (result) {
+                    alert(result);
+                    if(result=="ok")
+                    {
+                      window.location.href = 'banner';
+                    }
+                  }
+          });
+          return false;
+    }); 
+    $('#Edit_Banner').on('submit', function(e){
+          e.preventDefault();
+          let data = new FormData(this);
+          data.append('status', $('#e_stt').val());
+          data.append('id', $('#id_e_banner').text());
+          data.append('name_banner', $('#name_banner').text());
+          $.ajax({
+                  url: 'Edit_Banner',
+                  type: 'POST',
+                  data: data,
+                  cache: false,
+                  processData: false,
+                  contentType: false,
+                  success: function (result) {
+                    alert(result);
+                    if(result=="Completed!")
+                    {
+                      window.location.href = 'banner';
+                    }
+                  }
+          });
+          return false;
+    }); 
+    
+    $('.edit_banner').on('click', function(e){
+            e.preventDefault();
+            let e_banner = $.parseJSON($.trim($(this).find('span').text()));
+            $('#e_No').val(e_banner.stt);
+            $('#e_stt').val(e_banner.status.toString());
+            $('#show_banner').html(`<img src="/public/uploads/uploads/`+e_banner.img+`">`);
+            $('#id_e_banner').text(e_banner._id);
+            $('#name_banner').text(e_banner.img);
+            $("#myModal-E-Banner").modal('show');
+        });
+  
+    $('.delete_banner').on('click', function(e){
+        e.preventDefault();
+        let list_delete_banner = $.parseJSON($.trim($(this).find('span').text()));
+        $('#f_delete_name').text("vĩnh viễn " + list_delete_banner.stt);
+        $('#f_delete_banner').text(JSON.stringify(list_delete_banner));
+        $("#myModal-delete-banner").modal('show');
+    });
+
+    $('#delete_database_banner').on('click', function(e){
+        e.preventDefault();
+        let database_banner = $(this).find('span').text();
+        $.ajax({
+          url: 'delete_banner',
+          type: 'POST',
+          data: {database_banner:database_banner},
+          success: function (result) {
+            alert(result);
+            if(result=="da xoa")
+            {
+              $('#f_delete_banner').text('');
+              window.location.href = 'banner';
+            }
+          }
+        });
+        return false;
+    });
+
+  
+  
+  
+  
+  
+  });
+</script>
